@@ -1,0 +1,139 @@
+
+
+// Demo of a Keypad LCD Shield
+// Common design sold by DFRobot, various vendors on eBay etc
+
+#include <LiquidCrystal.h>
+
+
+// this is factory config shield initialisation
+LiquidCrystal lcd(8,9,4,5,6,7);
+
+byte smiley[8] = {
+  B01010,
+  B10000,
+  B00000,
+  B10000,
+  B00000,
+  B10000,
+  B00000,
+  B10000
+};
+
+byte c0[8] = {
+  B00000,
+  B00001,
+  B00010,
+  B00100,
+  B01000,
+  B01000,
+  B10000,
+  B10000
+};
+
+byte c1[8] = {
+  B11111,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000
+};
+
+byte c2[8] = {
+  B00000,
+  B10000,
+  B01000,
+  B00100,
+  B00010,
+  B00010,
+  B00001,
+  B00001
+};
+
+byte c3[8] = {
+  B10000,
+  B10000,
+  B01000,
+  B01000,
+  B00100,
+  B00010,
+  B00001,
+  B00000
+};
+
+byte c4[8] = {
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B00000,
+  B11111
+};
+
+byte c5[8] = {
+  B00001,
+  B00001,
+  B00010,
+  B00010,
+  B00100,
+  B01000,
+  B10000,
+  B00000
+};
+
+
+void setup()
+{
+  lcd.createChar(0, c0);
+  lcd.createChar(1, c1);
+  lcd.createChar(2, c2);
+  lcd.createChar(3, c3);
+  lcd.createChar(4, c4);
+  lcd.createChar(5, c5);
+  lcd.begin(16, 2);
+
+}
+
+void segmentOn(int seg ){
+    if (seg == 0) { lcd.setCursor(0,0); }
+    if (seg == 1) { lcd.setCursor(1,0); }
+    if (seg == 2) { lcd.setCursor(2,0); }
+    if (seg == 5) { lcd.setCursor(2,1); }
+    if (seg == 4) { lcd.setCursor(1,1); }
+    if (seg == 3) { lcd.setCursor(0,1); }
+    lcd.write(byte(seg));
+    delay(100);
+}
+
+void segmentOff(int seg ){
+    if (seg == 0) { lcd.setCursor(0,0); }
+    if (seg == 1) { lcd.setCursor(1,0); }
+    if (seg == 2) { lcd.setCursor(2,0); }
+    if (seg == 5) { lcd.setCursor(2,1); }
+    if (seg == 4) { lcd.setCursor(1,1); }
+    if (seg == 3) { lcd.setCursor(0,1); }
+    lcd.print(" ");
+    delay(100);
+}
+
+
+void loop()
+{
+  segmentOn(2);
+  segmentOff(0);
+  segmentOn(5);
+  segmentOff(1);
+  segmentOn(4);
+  segmentOff(2);
+  segmentOn(3);
+  segmentOff(5);
+  segmentOn(0);
+  segmentOff(4);
+  segmentOn(1);
+  segmentOff(3);
+}
